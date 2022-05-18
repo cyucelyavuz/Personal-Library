@@ -1,5 +1,6 @@
 {
-	"name": "fcc-library",
+	"name": "personal-library",
+	"author": "Can Yucel Yavuz",
 	"version": "1.0.0",
 	"description": "boilerplate",
 	"main": "server.js",
@@ -13,8 +14,10 @@
 		"cors": "^2.8.1",
 		"dotenv": "^8.2.0",
 		"express": "^4.14.0",
-		"mocha": "^3.2.0",
-		"zombie": "^5.0.5"
+		"mocha": "^10.0.0",
+		"mongoose": "^6.3.3",
+		"zombie": "^6.1.4",
+		"mongodb":"~4.6.0"
 	},
 	"repository": {
 		"type": "git",

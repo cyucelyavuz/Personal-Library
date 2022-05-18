@@ -8,15 +8,31 @@ require('dotenv').config();
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
-
+const mongoose = require('mongoose');
 const app = express();
-
+let dbReady=false;
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //USED FOR FCC TESTING PURPOSES ONLY!
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+mongoose.connect(process.env.MONGO_URI, 
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }
+);
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", ()=> {
+  dbReady=true;
+  console.log("Connected to MongoDB")}
+  );
+
 
 //Index page (static HTML)
 app.route('/')
@@ -28,7 +44,7 @@ app.route('/')
 fccTestingRoutes(app);
 
 //Routing for API 
-apiRoutes(app);  
+apiRoutes(app,db);  
     
 //404 Not Found Middleware
 app.use(function(req, res, next) {
@@ -41,15 +57,20 @@ app.use(function(req, res, next) {
 const listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
   if(process.env.NODE_ENV==='test') {
-    console.log('Running Tests...');
-    setTimeout(function () {
-      try {
-        runner.run();
-      } catch(e) {
-          console.log('Tests are not valid:');
-          console.error(e);
-      }
-    }, 1500);
+    
+      
+      console.log('Running Tests...');
+  
+      setTimeout(function () {
+          try {
+            runner.run();
+         } catch(e) {
+      console.log('Tests are not valid:');
+       console.error(e);
+     }
+    }, 3000);
+    
+  
   }
 });
 
