@@ -45,7 +45,10 @@ module.exports = function (app,db) {
           
           else {
             //console.log('book saved '+data);
-            res.json(data);
+            res.json({
+              title:data.title,
+              _id:data._id
+            });
           }
         });
         
