@@ -32,8 +32,7 @@ module.exports = function (app,db) {
     .post(function (req, res){
       //response will contain new book object including atleast _id and title
       let title = req.body.title;
-      if (!title) res.status(400)
-                      .send('missing required field title');
+      if (!title) res.send('missing required field title');
       else {
       const book = new Book({
         title:title
@@ -48,6 +47,7 @@ module.exports = function (app,db) {
             res.json({
               _id:data._id,
               title:data.title
+
             });
           }
         });
