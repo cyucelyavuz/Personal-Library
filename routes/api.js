@@ -78,7 +78,7 @@ module.exports = function (app,db) {
       let bookid = req.params.id;
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
       Book.findById(bookid,(err,doc)=>{
-        if(!doc) res.send('no book exists');
+        if(!doc) res.json('no book exists');
         else {
           res.json(doc);
         }
@@ -91,10 +91,10 @@ module.exports = function (app,db) {
       
       //json res format same as .get
 
-      if(!comment) res.send('missing required field comment');
+      if(!comment) res.json('missing required field comment');
       else {
       Book.findById(bookid,(err,doc)=>{
-        if (!doc) res.send('no book exists');
+        if (!doc) res.json('no book exists');
         else {
           doc.comments.push(comment);
           doc.save((err,doc)=>{
@@ -111,8 +111,8 @@ module.exports = function (app,db) {
       let bookid = req.params.id;
       //if successful response will be 'delete successful'
       Book.deleteOne({_id:bookid},(err,doc)=>{
-        if (!doc) res.send('no book exists');
-        else res.send('delete successful');
+        if (!doc) res.json('no book exists');
+        else res.json('delete successful');
       })
     });
   
