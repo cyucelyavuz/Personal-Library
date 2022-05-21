@@ -38,7 +38,7 @@ module.exports = function (app,db) {
       const book = new Book({
         title:title
       });
-      //console.log(book);
+      console.log(book);
       try{
         book.save((err,data)=>{
           if (err) console.log('error saving book')
