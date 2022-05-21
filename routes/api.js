@@ -46,8 +46,8 @@ module.exports = function (app,db) {
           else {
             //console.log('book saved '+data);
             res.json({
-              title:data.title,
-              _id:data._id
+              _id:data._id,
+              title:data.title
             });
           }
         });
