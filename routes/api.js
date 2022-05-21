@@ -33,7 +33,7 @@ module.exports = function (app,db) {
       //response will contain new book object including atleast _id and title
       let title = req.body.title;
       if (!title) res.status(400)
-                      .json('missing required field title');
+                      .send('missing required field title');
       else {
       const book = new Book({
         title:title
@@ -79,7 +79,7 @@ module.exports = function (app,db) {
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
       Book.findById(bookid,(err,doc)=>{
         if(!doc) res.status(404)
-                    .json('no book exists');
+                    .send('no book exists');
         else {
           res.json(doc);
         }
@@ -93,11 +93,11 @@ module.exports = function (app,db) {
       //json res format same as .get
 
       if(!comment) res.status(400)
-                      .json('missing required field comment');
+                      .send('missing required field comment');
       else {
       Book.findById(bookid,(err,doc)=>{
         if (!doc) res.status(404)
-                      .json('no book exists');
+                      .send('no book exists');
         else {
           doc.comments.push(comment);
           doc.save((err,doc)=>{
@@ -115,8 +115,8 @@ module.exports = function (app,db) {
       //if successful response will be 'delete successful'
       Book.deleteOne({_id:bookid},(err,doc)=>{
         if (!doc) res.status(404)
-                      .json('no book exists');
-        else res.json('delete successful');
+                      .send('no book exists');
+        else res.send('delete successful');
       })
     });
   
