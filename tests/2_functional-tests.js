@@ -99,7 +99,7 @@ suite('Functional Tests', function() {
               else{
                 assert.equal(res.status,200);
                 console.log(res.body);
-                assert.equal(res.body.html,"missing required field title");
+                assert.equal(res.body,"missing required field title");
                 done();
               }
             })
