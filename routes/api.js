@@ -112,15 +112,8 @@ module.exports = function (app,db) {
       //if successful response will be 'delete successful'
      
       Book.deleteOne({_id:bookid},(err,doc)=>{
-        console.log("deleting ="+bookid);
-        if (!doc) {
-          res.json('no book exists');
-          console.log('no book exists');  
-        }
-        else {
-          console.log('delete successful');
-          res.json('delete successful');
-        }
+        if(!err && doc) res.json('delete successful');
+        else if(!doc) res.json('no book exists');
       })
     });
   
