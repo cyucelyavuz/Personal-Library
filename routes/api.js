@@ -114,12 +114,12 @@ module.exports = function (app,db) {
       Book.deleteOne({_id:bookid},(err,doc)=>{
         console.log("deleting ="+bookid);
         if (!doc) {
-          res.send('no book exists');
+          res.json('no book exists');
           console.log('no book exists');  
         }
         else {
           console.log('delete successful');
-          res.send('delete successful');
+          res.json('delete successful');
         }
       })
     });
