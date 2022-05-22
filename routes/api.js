@@ -37,7 +37,7 @@ module.exports = function (app,db) {
       const book = new Book({
         title:title
       });
-      console.log(book);
+      //console.log(book);
       try{
         book.save((err,data)=>{
           if (err) console.log('error saving book')
@@ -111,6 +111,7 @@ module.exports = function (app,db) {
       let bookid = req.params.id;
       //if successful response will be 'delete successful'
       Book.deleteOne({_id:bookid},(err,doc)=>{
+        console.log(doc);
         if (!doc) res.json('no book exists');
         else res.json('delete successful');
       })
