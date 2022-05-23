@@ -112,7 +112,7 @@ module.exports = function (app,db) {
       //if successful response will be 'delete successful'
      
       Book.deleteOne({_id:bookid},(err,doc)=>{
-        if(!err && doc) res.json('delete successful');
+        if(doc) res.json('delete successful');
         else if(!doc) res.json('no book exists');
       })
     });
